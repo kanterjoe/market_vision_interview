@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 
-
 const userSchema = new mongoose.Schema({
     name: String,
     password: String,
@@ -12,5 +11,11 @@ const userSchema = new mongoose.Schema({
     ],
 });
 
+userSchema.methods.addToCart = function(productId) {
+    return this.update({$addToSet: {cart: productId}})
+};
+userSchema.methods.deleteFromCart = function(productId) {
+    return this.update({$pullAll: {cart: productId}})
+};
 
 module.exports = mongoose.model("User", userSchema);

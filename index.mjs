@@ -15,11 +15,9 @@ mongoose.connect(MONGO_CONNECTION, {useNewUrlParser: true});
 const app = express();
 app.use(bodyParser.json());
 
-// app.use(expressJWT());
 
 app.use("/", routes);
 
-app.use(ejwt({ secret: process.env.JWT_SECRET}).unless({path:['user']}));
-
+import _ from './util/makeProducts'
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`))
 ;

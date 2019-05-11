@@ -19,9 +19,9 @@ router.route('/')
             //check if found
             .then(data => data? checkPassword(userData, data) : createUser(userData))
             .then(data => res.json({
-                data: data,
+                data: {...data._doc},
                 token: jwt.sign({
-                        data: {...req.body}
+                        data: {...data._doc}
                     },
                     process.env.JWT_SECRET)
             }))
