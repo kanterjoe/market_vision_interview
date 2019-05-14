@@ -3,6 +3,8 @@ import logo from './logo.svg';
 import {Input, Button, Card, CardBody} from 'reactstrap';
 import './App.css';
 import axios from "axios";
+import AllProducts from './pages/AllProducts/AllProducts';
+
 class App extends React.Component {
   state={
       userToken: false,
@@ -11,9 +13,13 @@ class App extends React.Component {
 
   }
   componentDidMount() {
+    this.setupAJAX();
+  }
+  setupAJAX = () => {
     const token = localStorage.getItem("token")
     if (token && token !== '' && token !== 'undefined') {
       this.setState({userToken: token})
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     }
   }
   inputChange = inputField => e => {
@@ -34,11 +40,18 @@ class App extends React.Component {
       ;
 
   }
+  logout = () => {
+    localStorage.removeItem("token");
+    this.setupAJAX();
+    this.setState({
+      userToken: false,
+      userData: false,
+      errorMessage: false,
+    })
+  }
   render() {
     return this.state.userToken?
-                <div className="App">
-                    You are so logged in, it's not even funny
-                </div>
+                <AllProducts logout={this.logout}/>
                 :
               <Card className="App">
                   Please log in

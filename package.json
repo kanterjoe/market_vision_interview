@@ -7,23 +7,24 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "per-env",
-    "start:development": "concurrently 'nodemon --experimental-modules index.mjs' 'cd client && yarn start' ",
+    "start:development": "concurrently 'nodemon -r dotenv/config  --ignore \"./client/\" --experimental-modules index.mjs' 'cd client && yarn start' ",
     "install": "cd client && yarn install"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.18.0",
     "body-parser": "latest",
+    "dotenv": "latest",
     "express": "^4.16.4",
     "express-jwt": "^5.3.1",
+    "generate-random-data": "^0.0.3",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.5.7",
-    "per-env": "^1.0.2",
-    "generate-random-data": "^0.0.3"
-  },
+    "per-env": "^1.0.2"
+  }, 
   "devDependencies": {
     "concurrently": "^4.1.0",
     "nodemon": "^1.19.0"
-
   }
 }

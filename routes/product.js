@@ -2,6 +2,7 @@ const ejwt = require("express-jwt");
 const router = require("express").Router();
 const db = require('../models');
 
+console.log("YO",process.env.JWT_SECRET)
 router.use(ejwt({ secret: process.env.JWT_SECRET}).unless({path:['user']}));
 
 
