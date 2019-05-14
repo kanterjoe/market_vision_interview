@@ -1,0 +1,29 @@
+{
+  "name": "kanter_joseph_market_vision_interview",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "A small e-commerce app for market vision's interview process",
+  "main": "index.mjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "per-env",
+    "start:development": "concurrently 'nodemon --experimental-modules index.mjs' 'cd client && yarn start' ",
+    "install": "cd client && yarn install"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "latest",
+    "express": "^4.16.4",
+    "express-jwt": "^5.3.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.5.7",
+    "per-env": "^1.0.2",
+    "generate-random-data": "^0.0.3"
+  },
+  "devDependencies": {
+    "concurrently": "^4.1.0",
+    "nodemon": "^1.19.0"
+
+  }
+}

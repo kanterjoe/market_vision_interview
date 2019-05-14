@@ -5,7 +5,10 @@ import './App.css';
 import axios from "axios";
 class App extends React.Component {
   state={
-    userToken: false
+      userToken: false,
+      userData: false,
+      errorMessage: false,
+
   }
   componentDidMount() {
     const token = localStorage.getItem("token")
@@ -22,12 +25,19 @@ class App extends React.Component {
           password: this.state.password
       };
     axios.post("/user", loginData )
-        .then(data => console.log(data))
+        .then(response => response.status===200? response.data: Promise.reject("Incorrect username or password. Please try again."))
+        .then(data => {localStorage.setItem("token", data.token); return data;})
+        .then(({data, token}) => this.setState({
+            userData: data, userToken:token
+        }))
+        .catch( err => this.setState({errorMessage: err}))
+      ;
+
   }
   render() {
     return this.state.userToken?
                 <div className="App">
-                    You Good
+                    You are so logged in, it's not even funny
                 </div>
                 :
               <Card className="App">
