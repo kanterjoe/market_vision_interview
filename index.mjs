@@ -5,7 +5,7 @@ import bodyParser from 'body-parser';
 import routes from "./routes"
 
 
-const PORT = process.env.port || 3001;
+const PORT = process.env.PORT || 3001;
 const MONGO_CONNECTION = process.env.MONGODB_URI || 'mongodb://localhost:27017/market_vision_interview';
 
 mongoose.connect(MONGO_CONNECTION, {useNewUrlParser: true});
