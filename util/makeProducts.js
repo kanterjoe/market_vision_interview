@@ -11,14 +11,16 @@ const axios = require('axios');
 //         }
 //     )
 // }
-
-axios.get(`https://picsum.photos/v2/list?page=2&limit=5`)
-    .then(({data}) => data.map(photo => db.Product.create(
+//
+axios.get(`https://picsum.photos/v2/list?page=2&limit=500`)
+    .then(({data}) => random.pickSome(data, 5))
+    .then(photos => photos.map(photo => db.Product.create(
         {
-            name: random.lastName(),
+            name: random.title(),
             description: random.lorems(),
             category: random.pickOne(['Games','Nature', 'Philosophy', "Hardware", "Birds"]),
             image: `https://picsum.photos/id/${photo.id}/300/300`,
+            price: random.float(0, 100)
         }
     )))
  

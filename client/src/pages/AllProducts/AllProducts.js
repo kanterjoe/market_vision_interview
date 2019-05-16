@@ -1,5 +1,5 @@
 import React from 'react';
-import {Row, Col, Jumbotron, Button, Container} from 'reactstrap'
+import {Row, Col, Jumbotron, Button, Container, Nav, Navbar,NavbarBrand, NavItem} from 'reactstrap'
 import axios from 'axios';
 import ProductCard from './ProductCard'
 import ProductModal from '../ProductModal'
@@ -29,19 +29,22 @@ export default class AllProducts extends React.Component {
     remProductFromCart = id => axios.delete(`/cart/${id}`).then(response => this.getCart())
     render() {
         return (
+            <>
+                <Navbar color="light" light expand="md">
+                    <NavbarBrand>Buy Pictures</NavbarBrand>
+                    <Nav className="ml-auto" navbar>
+
+                        <CartIndicator
+                            cart={this.state.cart.map(id=> this.state.products.find(product => product._id === id))}
+                            emptyCart={this.emptyCart}
+                        />
+                        <Button outline color="danger" onClick={this.props.logout} style={{float:"right", marginLeft:"1em"}}>Logout</Button>
+
+                    </Nav>
+                </Navbar>
             <Container>
-                <Row>
-                    <Col md={12}>
-                        <Jumbotron>
-                            <Button color="danger" onClick={this.props.logout} style={{float:"right"}}>Logout</Button>
-                            <CartIndicator 
-                                cart={this.state.cart.map(id=> this.state.products.find(product => product._id === id))}
-                                emptyCart={this.emptyCart}
-                            />
-                        </Jumbotron>
-                    </Col>
-                </Row>
-                <Row>
+
+                <Row className="mt-3">
                     <Col md={4}>
                         {this.state.products.map(
                             (product, i) => i%3===0? 
@@ -85,6 +88,7 @@ export default class AllProducts extends React.Component {
                     removeFromCart={this.remProductFromCart}
                 />
             </Container>
+                </>
         )
     }
 }
