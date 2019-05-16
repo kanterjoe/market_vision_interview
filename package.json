@@ -10,6 +10,7 @@
     "start:development": "concurrently 'nodemon -r dotenv/config  --ignore \"./client/\" --experimental-modules index.mjs' 'cd client && yarn start' ",
     "start:production": "node --experimental-modules index.mjs",
     "build": "cd client && yarn build",
+    "heroku-postbuild": "cd client && npm install && npm run build",
     "install": "cd client && yarn install"
   },
   "author": "",
