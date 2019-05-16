@@ -4,10 +4,9 @@ import mongoose from "mongoose";
 import bodyParser from 'body-parser';
 import routes from "./routes"
 
-console.log("Parse Everything", process.env.JWT_SECRET)
 
 const PORT = process.env.port || 3001;
-const MONGO_CONNECTION = process.env.MONGOOSE || 'mongodb://localhost:27017/market_vision_interview';
+const MONGO_CONNECTION = process.env.MONGODB_URI || 'mongodb://localhost:27017/market_vision_interview';
 
 mongoose.connect(MONGO_CONNECTION, {useNewUrlParser: true});
 
@@ -19,6 +18,7 @@ app.use(bodyParser.json());
 
 app.use("/", routes);
 
+app.get("*", (req,res,err) => res.sendFile("client/build"))
 import _ from './util/makeProducts'
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`))
 ;

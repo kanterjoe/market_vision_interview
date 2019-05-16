@@ -7,3 +7,5 @@ Any login you create that is not an existing login will be automatically created
 However, if you try to login in with an existing username, it must have the previous password.
 
 This app uses MERN stack, and stores the products, users, and carts in a Mongo DB.
+
+Sorry if the products don't make sense, they are randomly generated.
