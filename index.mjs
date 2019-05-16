@@ -17,7 +17,7 @@ app.use(bodyParser.json());
 
 
 app.use("/", routes);
-app.get("*", (req,res,err) => res.sendFile(path.join(path.resolve(path.dirname('')) ,"client/build")))
+
 import _ from './util/makeProducts'
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`))
 ;
