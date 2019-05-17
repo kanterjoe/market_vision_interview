@@ -33,6 +33,7 @@ class App extends React.Component {
     axios.post("/user", loginData )
         .then(response => response.status===200? response.data: Promise.reject("Incorrect username or password. Please try again."))
         .then(data => {localStorage.setItem("token", data.token); return data;})
+        .then(data => {this.setupAJAX(); return data})
         .then(({data, token}) => this.setState({
             userData: data, userToken:token
         }))
