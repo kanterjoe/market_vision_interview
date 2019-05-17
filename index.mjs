@@ -3,11 +3,10 @@ import express from "express";
 import mongoose from "mongoose";
 import bodyParser from 'body-parser';
 import routes from "./routes"
+import path from 'path'
 
-console.log("Parse Everything", process.env.JWT_SECRET)
-
-const PORT = process.env.port || 3001;
-const MONGO_CONNECTION = process.env.MONGOOSE || 'mongodb://localhost:27017/market_vision_interview';
+const PORT = process.env.PORT || 3001;
+const MONGO_CONNECTION = process.env.MONGODB_URI || 'mongodb://localhost:27017/market_vision_interview';
 
 mongoose.connect(MONGO_CONNECTION, {useNewUrlParser: true});
 
