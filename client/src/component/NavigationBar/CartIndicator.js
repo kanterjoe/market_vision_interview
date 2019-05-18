@@ -1,7 +1,7 @@
 import React from 'react';
 import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem, Button, Modal, Alert,Jumbotron} from 'reactstrap';
 import axios from 'axios';
-const toMoney = number => `$${number.toFixed(2)}`;
+const toMoney = number => `$${(number || 0).toFixed(2)}`;
 
 class CartIndicator extends React.Component {
     state = {
@@ -9,17 +9,13 @@ class CartIndicator extends React.Component {
         emptyingCart: false,
         successModalOpen: false,
     };
-    toggle = () => {
-        this.setState({
-            dropdownOpen: !this.state.dropdownOpen
-        });
-    }
-    onCheckout = () => {
-        this.setState({emptyingCart: true}, 
-            () => this.props.emptyCart().then(this.setState({emptyingCart: false, successModalOpen: true}))        
-        )
-    }
-    closeSuccessModal = () => this.setState({successModalOpen: false})
+    
+    closeSuccessModal   = () => this.setState({successModalOpen: false})
+    toggle              = () => this.setState({dropdownOpen: !this.state.dropdownOpen});
+    onCheckout          = () => this.setState({emptyingCart: true}, 
+                            () => this.props.emptyCart()
+                                    .then(this.setState({emptyingCart: false, successModalOpen: true})));
+
     render() {
         const cartTotal = this.props.cart.reduce( (total, item) => total+=item.price, 0);
         return <div>
