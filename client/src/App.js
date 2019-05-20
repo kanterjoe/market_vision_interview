@@ -10,7 +10,8 @@ class App extends React.Component {
       userToken: false,
       userData: false,
       errorMessage: false,
-
+      username: "",
+      password: ""
   }
   componentDidMount() {
     this.setupAJAX();
@@ -30,13 +31,14 @@ class App extends React.Component {
         password: this.state.password
     };
     axios.post("/user", loginData )
-        .then(response => response.status===200? response.data: Promise.reject("Incorrect username or password. Please try again."))
+        .then(response => response.status===200? response.data: Promise.reject(response.data.message))
         .then(data => {this.setupAJAX(data.token); return data})
         .then(({data, token}) => this.setState({
             userData: data, userToken:token
         }))
-        .catch( err => this.setState({errorMessage: err}))
-      ;
+        
+        .catch( err => {console.log(err); this.setState({errorMessage: err.response.data.message})})
+      ; 
 
   }
   logout = () => {
@@ -55,6 +57,7 @@ class App extends React.Component {
       <LoginPage 
         inputChange={this.inputChange}
         login={this.login}
+        errorMessage={this.state.errorMessage}
       />
   }
 

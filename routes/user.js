@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 
 const db = require('../models');
 
-const UNAUTHORIZED_ERROR = {status: 401, msg: "Incorrect username or password"};
+const UNAUTHORIZED_ERROR = {status: 401, message: "Incorrect username or password"};
 const createUser = userData => db.User.create(userData)
                                         .then(dbData => ({...dbData, new:true}));
 const checkPassword = (passedData, dbData)  => (passedData.password === dbData.password) ? Promise.resolve(dbData) : Promise.reject(UNAUTHORIZED_ERROR);
@@ -13,6 +13,10 @@ router.route('/')
         res.send("Ok")
     })
     .post(  (req,res,err) => {
+        console.log((/[a-zA-Z0-9]{3,}/i).test(req.body.username || ""))
+        if (!(/[a-z][a-z0-9]{2,}/i).test(req.body.username || "") || !(/[a-z0-9 ]{6,}/i).test(req.body.password || "")) {
+            return res.json(400, {message: "Invalid Username or Password. Password must be greater than 6 characters."})
+        }
         const userData = {name: req.body.username, password: req.body.password};
 
         db.User.findOne({name: req.body.username})
